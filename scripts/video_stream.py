@@ -7,8 +7,8 @@ from utils import Framerate
 
 app = enqueue.Enqueue()
 
-app.add_queue('input', enqueue.LifoQueue, maxsize = 10)
-app.add_queue('output', enqueue.LifoQueue, maxsize = 10)
+app.add_queue('input', enqueue.LifoQueue)
+app.add_queue('output', enqueue.LifoQueue)
 
 framerate = Framerate()
 
@@ -74,12 +74,6 @@ def detect_faces(context):
 @app.task()
 def detection_worker_one(context):
   '''Detection worker one.'''
-
-  detect_faces(context)
-
-@app.task()
-def detection_worker_two(context):
-  '''Detection worker two.'''
 
   detect_faces(context)
 
