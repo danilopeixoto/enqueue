@@ -11,7 +11,7 @@ class Enqueue:
 
     self.__terminated = False
     self.__queues = {}
-    self.__tasks = set()
+    self.__tasks = []
 
   def terminate(self):
     '''Set application to terminate tasks.'''
@@ -52,7 +52,7 @@ class Enqueue:
     '''Add task and return the object reference.'''
 
     task = task_type(*args, **kwargs)
-    self.__tasks.add(task)
+    self.__tasks.append(task)
 
     return task
 
@@ -77,7 +77,7 @@ class Enqueue:
     return decorator
 
   def tasks(self):
-    '''Return task set.'''
+    '''Return task list.'''
 
     return self.__tasks
 

@@ -6,7 +6,7 @@ def test_initialization(app):
 
   assert app.terminated() == False
   assert app.queues() == {}
-  assert app.tasks() == set()
+  assert app.tasks() == []
 
 def test_termination(app):
   '''Test termination.'''

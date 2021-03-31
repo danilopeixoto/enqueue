@@ -3,8 +3,8 @@ import enqueue
 
 app = enqueue.Enqueue()
 
-app.add_queue('input', enqueue.LifoQueue)
-app.add_queue('output', enqueue.LifoQueue)
+app.add_queue('input', enqueue.Queue)
+app.add_queue('output', enqueue.Queue)
 
 
 @app.task()

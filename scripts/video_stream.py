@@ -2,15 +2,11 @@ import cv2
 import mediapipe as mp
 import enqueue
 
-from utils import Framerate
-
 
 app = enqueue.Enqueue()
 
-app.add_queue('input', enqueue.LifoQueue)
-app.add_queue('output', enqueue.LifoQueue)
-
-framerate = Framerate()
+app.add_queue('input', enqueue.Queue)
+app.add_queue('output', enqueue.Queue)
 
 
 @app.task()
@@ -61,14 +57,6 @@ def detect_faces(context):
             landmark_drawing_spec = drawing_spec,
             connection_drawing_spec = drawing_spec)
 
-      cv2.putText(
-          frame,
-          '{:.0f} fps'.format(framerate.get()),
-          (10, 450),
-          cv2.FONT_HERSHEY_SIMPLEX,
-          1.0,
-          (255, 255, 255))
-
       output.put(frame)
 
 @app.task()
@@ -83,12 +71,9 @@ def draw_detections(context):
 
   output = context.queue('output')
 
-  framerate.reset()
-
   while not context.terminated():
     if not output.empty():
       cv2.imshow('Face Mesh', output.get())
-      framerate.update()
 
     if cv2.waitKey(5) & 0xFF == 27:
       context.terminate()
